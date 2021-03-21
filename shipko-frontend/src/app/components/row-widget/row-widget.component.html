@@ -1,0 +1,53 @@
+
+<!-- <div class="container"> -->
+    <div class="row blue-grey table-header">
+        <div class="col s12 m2 l2">
+            Name
+        </div>
+        <div class="col s12 m2 l2">
+            Mobile
+        </div>
+        <div class="col s12 m2 l2">
+            Email
+        </div>
+        <div class="col s12 m2 l2">
+            Last Login
+        </div>
+        <div class="col s12 m1 l1">
+            Login Status
+        </div>
+        <div class="col s12 m2 l2">
+            Deleted
+        </div>
+        <div class="col s12 m1 l1">
+            Action
+        </div>
+    </div>
+    <div *ngFor="let item of items"> 
+        <div class="row">
+            <div class="col s12 m2 l2">
+                {{item.first_name +' '+ item.last_name}}
+            </div>
+            <div class="col s12 m2 l2">
+                {{item.mobile}}
+            </div>
+            <div class="col s12 m2 l2">
+                {{item.email}}
+            </div>
+            <div class="col s12 m2 l2">
+                {{item.login_details.last_login|date}}
+            </div>
+            <div class="col s12 m1 l1">
+                {{item.isLogin}}
+            </div>
+            <div class="col s12 m2 l2">
+                {{item.isDeleted ? 'Deleted' : 'Not Deleted'}}
+            </div>
+            <div class="col s12 m1 l1">
+                <i class="small material-icons" title="edit user" (click)="editUser(item._id)">edit</i> 
+                <i class="small material-icons" title="remove user" (click)="removeUser(item._id)">close</i> 
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+

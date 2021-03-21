@@ -1,0 +1,29 @@
+<form #register="ngForm" class="col s12" (ngSubmit)="OnSubmit(register)">
+    <div class="row">
+        <div class="input-field col s6">
+            <input #firstName="ngModel" [(ngModel)]="user.firstName" name="firstName" placeholder="First Name" type="text" required>
+            <label data-error="First name field!">FirstName</label>
+        </div>
+        <div class="input-field col s6">
+            <input #lastName="ngModel" [(ngModel)]="user.lastName" name="lastName" placeholder="Last Name" type="text" required>
+            <label data-error="Last name field!">LastName</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+            <input #mobile="ngModel" [(ngModel)]="user.mobile" name="mobile" placeholder="Mobile Number" type="text" required minlength="10">
+        </div>
+        <div class="input-field col s6">
+            <input #email="ngModel" [(ngModel)]="user.email" name="email" placeholder="Email" type="email" [pattern]="emailPattern">
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input #password="ngModel" [(ngModel)]="user.password"  name="password" placeholder="Password" type="password" required minlength="3">
+        </div>
+    </div>
+    <div class="row">
+        <button [disabled]="!register.valid" class="btn-large btn-submit" type="submit"> Register </button>
+    </div>
+    
+  </form>

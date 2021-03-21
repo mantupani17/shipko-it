@@ -1,0 +1,34 @@
+<app-header [myProfile]="myprofile"></app-header>
+<div class="container update-frm">
+    <form #userUpdate="ngForm" class="col s12" (ngSubmit)="OnSubmit(userUpdate)">
+        <div class="row">
+            <div class="input-field col s6">
+                <input #address_desc="ngModel" [(ngModel)]="address.address_desc" name="address_desc" placeholder="Detailed Address" type="text" required>
+                <label data-error="Description!">Detailed Address</label>
+            </div>
+            <div class="input-field col s6">
+                <input #state="ngModel" [(ngModel)]="address.state" name="state" placeholder="State" type="text" required>
+                <label data-error="State">State</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input #district="ngModel" [(ngModel)]="address.district" name="district" placeholder="District" type="text" required>
+                <label data-error="Description!">District</label>
+            </div>
+            <div class="input-field col s6">
+                <input #city="ngModel" [(ngModel)]="address.city" name="city" placeholder="city" type="text" required>
+                <label data-error="State">State</label>
+            </div>
+            <div class="input-field col s6">
+                <input #pincode="ngModel" [(ngModel)]="address.pincode" name="pincode" placeholder="pincode" type="text" required minlength="6" [pattern]="pincodePattern">
+                <label data-error="State">State</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <button [disabled]="!userUpdate.valid" class="btn-large btn-submit" type="submit"> Register </button>
+        </div>
+    </form>
+</div>
+

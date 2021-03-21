@@ -1,0 +1,19 @@
+<form #loginform="ngForm" class="col s12" (ngSubmit)="OnSubmit(loginform)">
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input #email="ngModel" [(ngModel)]="user.email" name="email" placeholder="User name" required>
+        </div>
+      </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">vpn_key</i>
+            <input #password="ngModel" [(ngModel)]="user.password" name="password" placeholder="Password" type="password" required required minlength="3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <button [disabled]="!loginform.valid" class="btn-large btn-submit" type="submit"> Login </button>
+        </div>
+    </div>  
+</form>
