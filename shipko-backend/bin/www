@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../index');
+var debug = require('debug')('shipko-it:server');
+var http = require('http');
+require('dotenv').config();
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '8080');
+const hostname = process.env.host || 'localhost';
+app.set('port', port);
+
+// global use of mongoose
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+
+/**
+ * Create HTTP server.
+ */
+const server = http.createServer(app);
+/**
+ * Database connection URI
+ */
+var mongoDB = 'mongodb://127.0.0.1:27017/testing_angular_db';
+mongoose.connect(mongoDB , { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
+    if (err) {
+        console.error('Database connection error:', err.message);
+        process.exit(1);
+    } else {
+        console.log("Database Connected...");
+        console.log(port)
+        // server.listen(port);
+        server.listen(port, hostname, function(){
+          console.log(`Server started on ${hostname}:${port}`);
+        });
+        
+        server.on('error', onError);
+        server.on('listening', onListening);
+    }
+});
+
+/**
+ * Mongoose Create index
+ */
+mongoose.set('useCreateIndex', true);
+// require('./../middlewares/mongoose-double');
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+// server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
